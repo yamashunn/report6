@@ -1,6 +1,6 @@
 package jp.ac.uryukyu.ie.e205733;
-import java.util.*;
 
+import java.util.*;
 
 public class BlackJack {
 
@@ -46,12 +46,106 @@ public class BlackJack {
             }
 
         }
-    }    
-    
-    void battle(){
-
     }
-    void checkWinner(){
-        
+
+    void battle() {
+
+        Random random = new Random();
+        for (int i = 2; playerPoint < 22; i++) {
+            System.out.println("現在のあなたの点数は" + playerPoint + "です。");
+            System.out.println("現在の相手の点数は" + dealerPoint + "です");
+            System.out.println("次の手を入力してください。ヒット or スタンド");
+            String str = new Scanner(System.in).nextLine();
+
+            if (str.equals("ヒット")) {
+                playerCard[i] = random.nextInt(13) + 1;
+                numPlayerCard += 1;
+                if (playerCard[i] >= 10) {
+                    playerCard[i] = 10;
+                }
+                if (playerCard[i] == 1) {
+                    playerCard[i] = 11;
+                }
+                playerPoint += playerCard[i];
+
+                for (int l = 0; l <= numPlayerCard; l++) {
+                    if (playerPoint >= 22) {
+                        if (playerCard[l] == 11) {
+                            playerCard[l] = 1;
+                            playerPoint -= 10;
+                        }
+                    }
+                }
+
+                if (playerPoint >= 22) {
+                    System.out.println("何やってんのよばか！！");
+                    System.out.println("あなたの点数は" + playerPoint + "点になりました");
+                    System.out.println("プレイヤーはバスト！！！！");
+                    break;
+                }
+            }
+
+            if (str.equals("スタンド")) {
+                for (int j = 1; dealerPoint < 17; j++) {
+                    dealerCard[j] = random.nextInt(13) + 1;
+                    numDealerCard += 1;
+                    if (dealerCard[j] >= 10) {
+                        dealerCard[j] = 10;
+                    }
+                    if (dealerCard[j] == 1) {
+                        dealerCard[j] = 11;
+                    }
+                    dealerPoint += dealerCard[j];
+
+                    for (int l = 0; l <= numDealerCard; l++) {
+                        if (dealerPoint >= 22) {
+                            if (dealerCard[l] == 11) {
+                                dealerCard[l] = 1;
+                                dealerPoint -= 10;
+                            }
+                        }
+                    }
+                    if (dealerPoint >= 22) {
+                        System.out.println("やったわね！！");
+                        System.out.println("ディーラーの点数は" + dealerPoint + "点になりました");
+                        System.out.println("ディーラーはバスト！！！！" + "\n");
+                        break;
+                    }
+                }
+            }
+            if (dealerPoint >= 17) {
+                System.out.println("↓↓↓↓↓↓今回の勝敗は以下の通りです↓↓↓↓↓↓" + "\n");
+                break;
+            }
+        }
+    }
+
+    void checkWinner() {
+
+        if (dealerPoint > 21 && playerPoint < 22) {
+            System.out.println("あなたの点数は" + playerPoint + "点でした");
+            System.out.println("ディーラーの点数は" + dealerPoint + "点でした");
+            System.out.println("プレイヤーの勝ち");
+        } else if (dealerPoint < 22 && playerPoint > 21) {
+            System.out.println("あなたの点数は" + playerPoint + "点でした");
+            System.out.println("ディーラーの点数は" + dealerPoint + "点でした");
+            System.out.println("ディーラーの勝ち");
+        } else if (dealerPoint > playerPoint) {
+            System.out.println("あなたの点数は" + playerPoint + "点でした");
+            System.out.println("ディーラーの点数は" + dealerPoint + "点でした");
+            System.out.println("ディーラーの勝ち");
+        } else if (dealerPoint < playerPoint) {
+            System.out.println("あなたの点数は" + playerPoint + "点でした");
+            System.out.println("ディーラーの点数は" + dealerPoint + "点でした");
+            System.out.println("プレイヤーの勝ち");
+        } else if (dealerPoint == playerPoint) {
+            System.out.println("あなたの点数は" + playerPoint + "点でした");
+            System.out.println("ディーラーの点数は" + dealerPoint + "点でした");
+            System.out.println("引き分け");
+        } else if (dealerPoint > 21 && playerPoint > 21) {
+            System.out.println("あなたの点数は" + playerPoint + "点でした");
+            System.out.println("ディーラーの点数は" + dealerPoint + "点でした");
+            System.out.println("ディーラーの勝ち");
+        }
     }
 }
