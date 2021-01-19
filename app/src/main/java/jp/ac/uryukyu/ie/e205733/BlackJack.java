@@ -2,6 +2,10 @@ package jp.ac.uryukyu.ie.e205733;
 
 import java.util.*;
 
+/**
+ * ブラックジャッククラス
+ * ①カードを配る②バトル③勝敗判定の順にゲームが進んでいく。
+ */
 public class BlackJack {
 
     int playerPoint;
@@ -11,12 +15,21 @@ public class BlackJack {
     int numPlayerCard;
     int numDealerCard;
 
+
+    /**
+     * プレイメソッド：play()
+     * ブラックジャッククラス内のメソッドをここでまとめて動かしている。
+     */
     void play() {
         distribute();
         battle();
         checkWinner();
     }
 
+    /**
+     * カードを配るメソッド:distribute
+     * プレイヤー側にカードを二枚、ディーラー側は最初にみることにできる一枚だけを配布
+     */
     void distribute() {
 
         Random random = new Random();
@@ -47,7 +60,11 @@ public class BlackJack {
 
         }
     }
-
+    /**
+     * 実際のゲームのメインとなるバトルメソッド：battle()
+     * プレイヤー側からの入力に対して、ヒットならカードを一枚ひく。スタンドならディーラー側のカードをひく。
+     * どちらかが１７点以上になるまでバトルは行われる
+     */
     void battle() {
 
         Random random = new Random();
@@ -57,6 +74,7 @@ public class BlackJack {
             System.out.println("次の手を入力してください。ヒット or スタンド");
             String str = new Scanner(System.in).nextLine();
 
+            // メソッドとしてやった方がテストのときよき
             if (str.equals("ヒット")) {
                 playerCard[i] = random.nextInt(13) + 1;
                 numPlayerCard += 1;
@@ -119,7 +137,10 @@ public class BlackJack {
             }
         }
     }
-
+    /**
+     * 勝敗判定をするメソッド：checkWinner()
+     * ブラックジャックのルールにのっとり、勝敗判定を行う。
+     */
     void checkWinner() {
 
         if (dealerPoint > 21 && playerPoint < 22) {
